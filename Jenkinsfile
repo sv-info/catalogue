@@ -3,7 +3,7 @@ pipeline {
         label 'Agent-1'
     }
     environment{
-       appVersion=''
+       APP_VERSION = ''
     }
      options {
         timeout(time: 30, unit: 'MINUTES') 
@@ -16,19 +16,20 @@ pipeline {
                     // Read the entire package.json file into a Groovy map/object
                     def packageJSON = readJSON file: 'package.json'
 
-                    // Access the version property
-                     appVersion = packageJSON.version
+                    // Access the version property and set it as an environment variable
+                    env.APP_VERSION = packageJSON.version
 
                     // Print the version to the console output
-                    echo "Project version: ${appVersion}"
+                    echo "Project version: ${env.APP_VERSION}"
                 }
             }
         }
+        stage('Build') {
             steps {
                 script{
-                sh """
-                echo "Hello Build"
-                """
+                    sh '''
+                    echo "Hello Build"
+                    '''
                 }
             }
         }
