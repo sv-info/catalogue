@@ -35,9 +35,9 @@ pipeline {
             }
         }
         stage('Docker Build') {            
-            steps {               
-                    withAWS(credentials: 'aws-auth', region: "${AWS_REGION}") {
+            steps { 
                     script{
+                    withAWS(credentials: 'aws-auth', region: "${AWS_REGION}") {
                     sh """
                         aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 583084550155.dkr.ecr.us-east-1.amazonaws.com
                         docker build -t 583084550155.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:${APP_VERSION} .
