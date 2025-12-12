@@ -17,10 +17,10 @@ pipeline {
                     def packageJSON = readJSON file: 'package.json'
 
                     // Access the version property and set it as an environment variable
-                    env.APP_VERSION = packageJSON.version
+                    APP_VERSION = packageJSON.version
 
                     // Print the version to the console output
-                    echo "Project version: ${env.APP_VERSION}"
+                    echo "Project version: ${APP_VERSION}"
                 }
             }
         }
