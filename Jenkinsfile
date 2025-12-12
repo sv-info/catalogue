@@ -56,10 +56,7 @@ pipeline {
             echo 'Hello Success!'
         }
         failure { 
-            echo 'Hello, Failure!'
-        changed { 
-            echo 'Hello!.. Changed!'
-        }
+            echo 'Hello, Failure!'        
     }
 }
 }
