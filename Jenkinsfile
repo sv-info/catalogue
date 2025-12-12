@@ -34,12 +34,7 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {            
+        stage('Docker Build') {            
             steps {
                 script{
                     withAWS(credentials: 'aws-cred', region: "${AWS_REGION}") {
