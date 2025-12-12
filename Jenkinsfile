@@ -47,6 +47,7 @@ pipeline {
             }
         }
     }
+    }
     post { 
         always { 
             echo 'I will always say Hello again!'
@@ -56,7 +57,6 @@ pipeline {
         }
         failure { 
             echo 'Hello, Failure!'
-        }
         changed { 
             echo 'Hello!.. Changed!'
         }
