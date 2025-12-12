@@ -2,15 +2,28 @@ pipeline {
     agent {
         label 'Agent-1'
     }
-    // environment{
-    //     course="jenkins"
-    // }
+    environment{
+       appVersion=''
+    }
      options {
         timeout(time: 30, unit: 'MINUTES') 
         disableConcurrentBuilds()
     }    
     stages {
-        stage('Build') {
+       stage('Read Package Version') {
+            steps {
+                script {
+                    // Read the entire package.json file into a Groovy map/object
+                    def packageJSON = readJSON file: 'package.json'
+
+                    // Access the version property
+                     appVersion = packageJSON.version
+
+                    // Print the version to the console output
+                    echo "Project version: ${appVersion}"
+                }
+            }
+        }
             steps {
                 script{
                 sh """
