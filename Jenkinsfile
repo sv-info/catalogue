@@ -4,6 +4,7 @@ pipeline {
     }
     environment{
        APP_VERSION = ''
+       AWS_REGION='us-east-1'
     }
      options {
         timeout(time: 30, unit: 'MINUTES') 
@@ -40,7 +41,14 @@ pipeline {
         }
         stage('Deploy') {            
             steps {
-                echo 'Deploying....'
+                script{
+                    withAWS(credentials: 'aws-cred', region: "${AWS_REGION}") {
+                    sh """
+                        aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 583084550155.dkr.ecr.us-east-1.amazonaws.com
+                        docker build -t 583084550155.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:${APP_VERSION}
+                        docker push 583084550155.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:${APP_VERSION}
+                    """
+                }
             }
         }
     }
